@@ -28,3 +28,32 @@ b)
 UPDATE statek SET max_ladownosc=0.7*max_ladownosc WHERE data_wodowania BETWEEN '1910-01-01' AND '2020-06-02';
 c)
 ALTER TABLE postac CHECK(wiek<=1000); 
+
+Zadanie 4
+a)
+ALTER TABLE postac MODIFY rodzaj enum('wiking','kobieta','ptak','syrena','waz');
+INSERT INTO postac VALUES('83676253781',10,'Waz Loko','waz','1980-06-23',40,default,default);
+b)
+pierwszy sposób
+CREATE TABLE marynarz LIKE postac; (przenossi klucz główny i obce)
+INSERT INTO marynarz SELECT * FROM postac WHERE statek IS NOT NULL;
+drugi sposób
+CREATE TABLE marynarz SELECT * FROM postac WHERE statek IS NOT NULL; (NIE przenosi kluczy)
+c)
+przy pierwszym sposobie zrobione od razu
+przy drugim ALTER TABLE marynarz2 ADD PRIMARY KEY(pesel);
+
+Zadanie 5
+a)
+UPDATE postac SET statek=NULL WHERE statek!=NULL;
+b)
+DELETE postac WHERE nazwa='Derm';
+c)
+DELETE FROM statek WHERE nazwa_statku IS NOT NULL;
+d)
+ALTER TABLE postac DROP FOREIGN KEY postac_ibfk_1;
+DROP TABLE statek;
+e)
+CREATE TABLE zwierz(id INT unsigned auto_increment PRIMARY KEY,nazwa VARCHAR(40),);
+f)
+INSERT INTO zwierz SELECT id_postaci,nazwa,wiek FROM postac WHERE rodzaj='ptak' OR rodzaj='waz';
