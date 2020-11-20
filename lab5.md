@@ -27,3 +27,22 @@ b)
 SELECT * FROM zasob WHERE rodzaj IS NOT NULL ORDER BY ASC;
 c)
 SELECT * FROM kreatura ORDER BY dataUr ASC LIMIT 5;
+
+Zadanie 4
+a)
+SELECT DISTINCT rodzaj FROM kreatura;
+b)
+SELECT CONCAT(nazwa,'-',rodzaj) AS 'nazwa-rodzaj' FROM kreatura WHERE rodzaj LIKE 'wi%';
+c)
+(SELECT CONCAT(ilosc*waga) AS 'laczna masa zasobu' FROM zasob WHERE year(dataPozyskania) BETWEEN 2000 AND 2007;)(Tak nie robic zmienia na varchar)
+SELECT nazwa, waga*ilosc FROM zasob WHERE dataPozyskania BETWEEN '2000-01-01' AND '2007-12-31';
+
+Zadanie 5
+a)
+SELECT nazwa,0.7*waga*ilosc as 'Waga netto',0.3*waga*ilosc as 'Waga odpadkow' FROM zasob where rodzaj='jedzenie';
+b)
+SELECT * FROM zasob WHERE rodzaj IS NULL;
+lub
+SELECT nazwa,rodzaj FROM zasob WHERE rodzaj='';
+c)
+SELECT nazwa,DISTINCT(rodzaj) FROM zasob WHERE nazwa like'Ba%' or nazwa like'%os' ORDER BY nazwa ASC;
