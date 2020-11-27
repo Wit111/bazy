@@ -25,3 +25,16 @@ a)
 SELECT nazwa,sum(ilosc) FROM kreatura k,ekwipunek e WHERE k.idKreatury=e.idKreatury GROUP BY nazwa;
 b)
 SELECT k.nazwa,e.ekwipunek,e.ilosc FROM kreatura k,ekwipunek e, zasob z WHERE k.idKreatury=e.idKreatury AND e.idZasobu=z.idZasobu;
+c)
+SELECT DISTINCT k.idKreatury,k.nazwa,e.idKreatury FROM kreatura k left join ekwipunek e ON k.idKreatury=e.idKreatury WHERE e.idKreatury IS NULL;
+lub SELECT k.idKreatury, k.nazwa from kreatura k WHERE k.idKreatury not in(SELECT idKreatury FROM ekwipunek where idKreatury is NOT NULL);
+
+Zadanie 4
+a)
+SELECT k.nazwa,z.nazwa  FROM kreatura k,zasob z, ekwipunek e WHERE k.idKreatury=e.idKreatury AND e.idZasobu=z.idZasobu AND k.rodzaj='wiking' AND YEAR(k.dataUr) BETWEEN 1670 AND 1679;
+lub z natural join
+SELECT k.nazwa,z.nazwa  FROM kreatura k,zasob z NATURAL JOIN ekwipunek e WHERE e.idZasobu=z.idZasobu AND k.rodzaj='wiking' AND YEAR(k.dataUr) BETWEEN 1670 AND 1679;
+b)
+SELECT k.nazwa FROM kreatura k left join ekwipunek e ON k.idKreatury=e.idKreatury INNER JOIN zasob z ON e.idZasobu=z.idZasobu WHERE z.rodzaj='jedzenie' ORDER BY dataUr DESC LIMIT 5;
+c)
+SELECT k.nazwa, k2.nazwa FROM kreatura k,kreatura k2 WHERE k.idKreatury-k2.idKreatury=5 ;
