@@ -38,3 +38,11 @@ b)
 SELECT k.nazwa FROM kreatura k left join ekwipunek e ON k.idKreatury=e.idKreatury INNER JOIN zasob z ON e.idZasobu=z.idZasobu WHERE z.rodzaj='jedzenie' ORDER BY dataUr DESC LIMIT 5;
 c)
 SELECT k.nazwa, k2.nazwa FROM kreatura k,kreatura k2 WHERE k.idKreatury-k2.idKreatury=5 ;
+Zadanie 5
+a)
+SELECT k.rodzaj, AVG(e.ilosc *z.waga) FROM kreatura AS k, ekwipunek AS e, zasob AS z where k.idKreatury=e.idKreatury AND e.idZasobu=z.idZasobu AND k.rodzaj NOT IN('malpa','waz') GROUP BY rodzaj HAVING SUM(e.ilosc) < 30;
+b)
+SELECT DISTINCT k.rodzaj,
+(SELECT CONCAT(k2.nazwa, " - " , k2.dataUr) FROM kreatura k2 WHERE k.rodzaj=k2.rodzaj ORDER BY k2.dataUr LIMIT 1) AS najstarsze,
+(SELECT CONCAT(k2.nazwa, " - " , k2.dataUr) FROM kreatura k2 WHERE k.rodzaj=k2.rodzaj ORDER BY k2.dataUr DESC LIMIT 1) AS najmlodsze
+FROM kreatura k;
