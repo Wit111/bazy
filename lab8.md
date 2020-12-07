@@ -73,4 +73,15 @@ END
 //
 DELIMITER ;
 
+Zadanie 5
+a)
+DELIMITER //
+CREATE PROCEDURE op_udzwig(IN udzwig1 INT, OUT srednia INT,suma INT,maks INT)
+BEGIN
+SELECT AVG(udzwig1) INTO srednia;
+SELECT SUM(udzwig1) INTO suma;
+SELECT (SELECT udzwig from kreatura order by udzwig LIMIT 1) INTO maks;
+END
+//
+DELIMITER ;
 
